@@ -1,0 +1,14 @@
+[project]
+name = "cross-stitch-up-grid-extract"
+version = "0.0.1"
+authors = [
+  { name="GoodPie", email="brandynbb96@gmail.com" },
+]
+description = "Open CV extraction of grids for cross-stitch patterns"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
