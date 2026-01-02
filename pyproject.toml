@@ -44,9 +44,9 @@ api = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/GoodPie/cross-stitch-up-api"
-Repository = "https://github.com/GoodPie/cross-stitch-up-api"
-Issues = "https://github.com/GoodPie/cross-stitch-up-api/issues"
+Homepage = "https://github.com/GoodPie/cross-stitch-pattern-grid-extractor"
+Repository = "https://github.com/GoodPie/cross-stitch-pattern-grid-extractor"
+Issues = "https://github.com/GoodPie/cross-stitch-pattern-grid-extractor/issues"
 
 [project.scripts]
 grid-extract = "cli:main"
