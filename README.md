@@ -1,12 +1,13 @@
 # Cross-Stitch Grid Extractor
 
-A Python tool that extracts grid cell data (position, dimensions, and colors) from cross-stitch pattern PDFs. Perfect for digitizing patterns, analyzing color distributions, or converting patterns to other formats.
+A Python tool that extracts grid cell data (position, dimensions, and colors) from cross-stitch pattern PDFs and images. Perfect for digitizing patterns, analyzing color distributions, or converting patterns to other formats.
 
 ## Features
 
-- **Automatic Grid Detection** - Uses OpenCV Hough line detection to identify grid lines in PDF patterns
+- **Automatic Grid Detection** - Uses OpenCV algorithms to identify grid lines in patterns
+- **Multiple Input Sources** - Process PDFs or images from URLs
 - **Color Extraction** - Samples and extracts RGB/hex colors from each grid cell
-- **Flexible Page Selection** - Process individual pages or page ranges
+- **Flexible Page Selection** - Process individual pages or page ranges (for PDFs)
 - **Multiple Output Formats** - Standard or compact JSON output (compact format reduces file size by 50-60%)
 - **Debug Visualization** - Generate annotated images showing detected grid lines
 - **High Quality Rendering** - Configurable DPI for accurate pattern extraction
@@ -22,12 +23,12 @@ A Python tool that extracts grid cell data (position, dimensions, and colors) fr
 
 Using pip:
 ```bash
-pip install opencv-python numpy pdf2image Pillow
+pip install opencv-python numpy pdf2image Pillow requests
 ```
 
 Using uv:
 ```bash
-uv pip install opencv-python numpy pdf2image Pillow
+uv pip install opencv-python numpy pdf2image Pillow requests
 ```
 
 ### System Requirements
@@ -42,10 +43,16 @@ The `pdf2image` library requires `poppler` to be installed:
 
 ### Basic Usage
 
-Extract grid data from specific pages:
+Extract grid data from a PDF:
 
 ```bash
 python grid-extract.py pattern.pdf --pages 1-4
+```
+
+Extract grid data from an image URL:
+
+```bash
+python grid-extract.py --url https://example.com/pattern.jpg
 ```
 
 ### Command Line Options
