@@ -9,10 +9,10 @@ from typing import Optional
 import cv2
 import numpy as np
 
-from color_extraction import sample_cell_color
-from grid_detection import detect_grid, detect_pattern_boundary
-from models import GridCell, GridPage, rgb_to_hex
-from pdf_converter import pdf_page_to_image
+from .color_extraction import sample_cell_color
+from .grid_detection import detect_grid, detect_pattern_boundary
+from .models import GridCell, GridPage, rgb_to_hex
+from .pdf_converter import pdf_page_to_image
 
 
 def extract_grid_cells(

@@ -4,7 +4,7 @@ Color extraction and sampling from grid cells.
 
 import numpy as np
 
-from models import rgb_to_hex
+from .models import rgb_to_hex
 
 
 def sample_cell_color(

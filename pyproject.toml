@@ -50,7 +50,7 @@ Repository = "https://github.com/GoodPie/cross-stitch-pattern-grid-extractor"
 Issues = "https://github.com/GoodPie/cross-stitch-pattern-grid-extractor/issues"
 
 [project.scripts]
-grid-extract = "cli:main"
+grid-extract = "cross_stitch_grid_extract.cli:main"
 
 [tool.hatchling.build.targets.wheel]
-packages = ["."]
+packages = ["cross_stitch_grid_extract"]

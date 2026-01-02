@@ -8,9 +8,9 @@ import sys
 from dataclasses import asdict
 from pathlib import Path
 
-from grid_processor import process_image, process_page, save_debug_image
-from image_loader import load_image_from_url
-from models import ExtractionResult
+from .grid_processor import process_image, process_page, save_debug_image
+from .image_loader import load_image_from_url
+from .models import ExtractionResult
 
 
 def parse_pages(pages_str: str) -> list[int]:
