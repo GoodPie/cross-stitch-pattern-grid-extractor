@@ -1,14 +1,55 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
-name = "cross-stitch-up-grid-extract"
+name = "cross-stitch-grid-extract"
 version = "0.0.1"
 authors = [
   { name="GoodPie", email="brandynbb96@gmail.com" },
 ]
-description = "Open CV extraction of grids for cross-stitch patterns"
+description = "OpenCV extraction of grids for cross-stitch patterns"
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Multimedia :: Graphics",
 ]
 license = "MIT"
+dependencies = [
+    "opencv-python>=4.8.0",
+    "numpy>=1.24.0",
+    "pdf2image>=1.16.0",
+    "Pillow>=10.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.1.0",
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+]
+api = [
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+    "pydantic>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/GoodPie/cross-stitch-up-api"
+Repository = "https://github.com/GoodPie/cross-stitch-up-api"
+Issues = "https://github.com/GoodPie/cross-stitch-up-api/issues"
+
+[project.scripts]
+grid-extract = "cli:main"
+
+[tool.hatchling.build.targets.wheel]
+packages = ["."]
