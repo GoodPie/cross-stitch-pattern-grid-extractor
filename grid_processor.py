@@ -61,6 +61,51 @@ def extract_grid_cells(
     return cells
 
 
+def process_image(
+        image: np.ndarray,
+        source_name: str,
+        page_number: int = 1,
+        debug: bool = False
+) -> Optional[GridPage]:
+    """
+    Process an image and extract grid data.
+
+    Args:
+        image: BGR image array
+        source_name: Name/identifier for the source (for debug messages)
+        page_number: Page number to assign (default: 1)
+        debug: Enable debug output
+
+    Returns:
+        GridPage object with extracted data, or None if processing fails
+    """
+    if debug:
+        print(f"Processing {source_name}...")
+        print(f"  Image size: {image.shape[1]} x {image.shape[0]}")
+
+    # Detect grid structure
+    x_positions, y_positions, cell_width, cell_height = detect_grid(image, debug=debug)
+
+    if len(x_positions) < 2 or len(y_positions) < 2:
+        print(f"Warning: Could not detect grid in {source_name}", file=sys.stderr)
+        return None
+
+    # Extract cell data
+    cells = extract_grid_cells(image, x_positions, y_positions, debug)
+
+    rows = len(y_positions) - 1
+    cols = len(x_positions) - 1
+
+    return GridPage(
+        page_number=page_number,
+        rows=rows,
+        cols=cols,
+        cell_width=cell_width,
+        cell_height=cell_height,
+        cells=cells
+    )
+
+
 def process_page(
         pdf_path: Path,
         page_number: int,
@@ -79,9 +124,6 @@ def process_page(
     Returns:
         GridPage object with extracted data, or None if processing fails
     """
-    if debug:
-        print(f"Processing page {page_number}...")
-
     # Convert PDF page to image
     try:
         image = pdf_page_to_image(pdf_path, page_number, dpi)
@@ -89,30 +131,8 @@ def process_page(
         print(f"Error converting page {page_number}: {e}", file=sys.stderr)
         return None
 
-    if debug:
-        print(f"  Image size: {image.shape[1]} x {image.shape[0]}")
-
-    # Detect grid structure
-    x_positions, y_positions, cell_width, cell_height = detect_grid(image, debug=debug)
-
-    if len(x_positions) < 2 or len(y_positions) < 2:
-        print(f"Warning: Could not detect grid on page {page_number}", file=sys.stderr)
-        return None
-
-    # Extract cell data
-    cells = extract_grid_cells(image, x_positions, y_positions, debug)
-
-    rows = len(y_positions) - 1
-    cols = len(x_positions) - 1
-
-    return GridPage(
-        page_number=page_number,
-        rows=rows,
-        cols=cols,
-        cell_width=cell_width,
-        cell_height=cell_height,
-        cells=cells
-    )
+    # Process the image
+    return process_image(image, f"page {page_number}", page_number, debug)
 
 
 def save_debug_image(
