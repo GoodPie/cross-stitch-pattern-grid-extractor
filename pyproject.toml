@@ -8,7 +8,7 @@ version = "0.0.1"
 authors = [
   { name="GoodPie", email="brandynbb96@gmail.com" },
 ]
-description = "OpenCV extraction of grids for cross-stitch patterns"
+description = "OpenCV extraction of grids from cross-stitch pattern PDFs and images"
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [

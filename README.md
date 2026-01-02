@@ -58,21 +58,26 @@ python grid-extract.py --url https://example.com/pattern.jpg
 ### Command Line Options
 
 ```
-python grid-extract.py <document> [options]
+python grid-extract.py [document] [options]
 
-Required Arguments:
-  document              Path to the PDF document
-  --pages, -p          Pages to process (e.g., "1", "1-4", "1,3,5-7")
+Input Arguments (one required):
+  document              Path to the PDF document (optional if --url is provided)
+  --url                 URL of an image to process
+
+PDF-Specific Arguments:
+  --pages, -p          Pages to process (e.g., "1", "1-4", "1,3,5-7") - required for PDF
 
 Optional Arguments:
-  --output, -o         Output JSON file path (default: <document>_grid.json)
+  --output, -o         Output JSON file path (default: <document>_grid.json or grid_output.json)
   --dpi                DPI for PDF rendering (default: 200)
-  --compact            Use compact JSON format (reduces file size by compressing the output size)
+  --compact            Use compact JSON format (reduces file size)
   --debug              Enable debug output
-  --debug-image        Save debug images showing detected grid lines
+  --debug-image        Save debug images showing detected grid lines (PDF only)
 ```
 
 ### Examples
+
+**PDF Processing:**
 
 Extract a single page:
 ```bash
@@ -92,6 +97,23 @@ python grid-extract.py pattern.pdf --pages 1,3,5 --compact --debug-image
 High DPI extraction for fine details:
 ```bash
 python grid-extract.py pattern.pdf --pages 1-10 --dpi 300
+```
+
+**URL Processing:**
+
+Extract from a URL:
+```bash
+python grid-extract.py --url https://example.com/pattern.jpg
+```
+
+Extract from URL with custom output and compact format:
+```bash
+python grid-extract.py --url https://example.com/pattern.jpg --output my_pattern.json --compact
+```
+
+Extract from URL with debug output:
+```bash
+python grid-extract.py --url https://example.com/pattern.jpg --debug
 ```
 
 ## Output Format
@@ -156,9 +178,9 @@ Each cell in compact format is represented as `[row, col, color_index]` where `c
 
 ## How It Works
 
-1. **PDF to Image** - Converts PDF pages to high-resolution images
-2. **Grid Detection** - Uses Hough line transform to detect horizontal and vertical grid lines
-3. **Pattern Boundary Detection** - Identifies the actual pattern area within the page
+1. **Image Loading** - Loads images from PDF pages or URLs
+2. **Grid Detection** - Uses autocorrelation and Hough line transform to detect grid lines
+3. **Pattern Boundary Detection** - Identifies the actual pattern area within the image
 4. **Color Sampling** - Samples the center region of each cell to extract colors
 5. **Data Export** - Generates structured JSON output with all grid data
 
@@ -188,7 +210,8 @@ Each cell in compact format is represented as `[row, col, color_index]` where `c
 - numpy
 - pdf2image
 - Pillow
-- poppler (system dependency)
+- requests
+- poppler (system dependency for PDF processing)
 
 ## Contributing
 

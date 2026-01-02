@@ -96,12 +96,21 @@ def process_image(
     rows = len(y_positions) - 1
     cols = len(x_positions) - 1
 
+    # Calculate grid corner coordinates
+    grid_coordinates = {
+        "top_left": (x_positions[0], y_positions[0]),
+        "top_right": (x_positions[-1], y_positions[0]),
+        "bottom_left": (x_positions[0], y_positions[-1]),
+        "bottom_right": (x_positions[-1], y_positions[-1])
+    }
+
     return GridPage(
         page_number=page_number,
         rows=rows,
         cols=cols,
         cell_width=cell_width,
         cell_height=cell_height,
+        grid_coordinates=grid_coordinates,
         cells=cells
     )
 

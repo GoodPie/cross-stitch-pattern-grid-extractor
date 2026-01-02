@@ -34,6 +34,7 @@ class GridPage:
     cols: int
     cell_width: float
     cell_height: float
+    grid_coordinates: dict[str, tuple[int, int]]
     cells: list[GridCell]
 
     def to_compact_dict(self) -> dict:
@@ -60,6 +61,12 @@ class GridPage:
             "cols": self.cols,
             "cell_width": self.cell_width,
             "cell_height": self.cell_height,
+            "grid_coordinates": {
+                "top_left": list(self.grid_coordinates["top_left"]),
+                "top_right": list(self.grid_coordinates["top_right"]),
+                "bottom_left": list(self.grid_coordinates["bottom_left"]),
+                "bottom_right": list(self.grid_coordinates["bottom_right"])
+            },
             "palette": color_palette,
             "cells": compact_cells
         }
